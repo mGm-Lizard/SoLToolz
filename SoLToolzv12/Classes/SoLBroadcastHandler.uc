@@ -9,15 +9,7 @@ var private float LastRandTime;
 static function FillPlayInfo(PlayInfo PlayInfo)
 {
     Super.FillPlayInfo(PlayInfo);  // Always begin with calling parent
-
-    PlayInfo.AddSetting(default.ChatGroup,   "bMuteSpectators",     default.BHDisplayText[0],   0, 1,   "Check",,,True,True);
-    PlayInfo.AddSetting(default.ChatGroup,   "bPartitionSpectators",    default.BHDisplayText[1],   1, 1,   "Check",,,True,True);
-
-    if ( default.NextBroadcastHandlerClass != None )
-    {
-        default.NextBroadcastHandlerClass.static.FillPlayInfo(PlayInfo);
-        PlayInfo.PopClass();
-    }
+    PlayInfo.PopClass();
 }
 
 
