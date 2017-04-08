@@ -185,7 +185,7 @@ function bool InternalOnPreDraw(Canvas C)
         SetButtonPositions(C);
         UpdatePlayerLists();
 
-        if ( ((PlayerOwner().myHUD == None) || !PlayerOwner().myHUD.IsInCinematic()) && GRI.bMatchHasBegun && !PlayerOwner().IsInState('GameEnded') && (GRI.MaxLives <= 0 || !PlayerOwner().PlayerReplicationInfo.bOnlySpectator) )
+        if ( ((PlayerOwner().myHUD == None) || !PlayerOwner().myHUD.IsInCinematic()) && (GRI.MaxLives <= 0 || !PlayerOwner().PlayerReplicationInfo.bOnlySpectator) )
             EnableComponent(b_Spec);
         else
             DisableComponent(b_Spec);
