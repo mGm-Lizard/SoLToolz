@@ -111,6 +111,9 @@ function bool InternalOnPreDraw(Canvas C)
 {
     local PlayerReplicationInfo PRI;
     local SoLPlayerReplicationInfo RI;
+    local GameReplicationInfo GRI;
+
+
 
     PRI = PlayerOwner().PlayerReplicationInfo;
     if(PRI != None)
@@ -151,14 +154,21 @@ function bool InternalOnPreDraw(Canvas C)
   else
       b_UserButton3.bVisible = false;
 	
-  SetButtonPositions(C);
 
-  if ( ((PlayerOwner().myHUD == None) || !PlayerOwner().myHUD.IsInCinematic()) 
-      /*&& GRI.bMatchHasBegun*/ /*&& !PlayerOwner().IsInState('GameEnded')*/ 
-      && (GRI.MaxLives <= 0 || !PlayerOwner().PlayerReplicationInfo.bOnlySpectator) )
-      EnableComponent(b_Spec);
-  else
-      DisableComponent(b_Spec);
+  GRI = GetGRI();
+  
+  if (GRI != None)
+  {
+     if (bInit)
+         InitGRI();
+	  
+      SetButtonPositions(C);
+
+      if ( ((PlayerOwner().myHUD == None) || !PlayerOwner().myHUD.IsInCinematic()) && (GRI.MaxLives <= 0 || !PlayerOwner().PlayerReplicationInfo.bOnlySpectator) )
+          EnableComponent(b_Spec);
+      else
+          DisableComponent(b_Spec);
+  }
   
   return Super.InternalOnPreDraw(C);
 }
