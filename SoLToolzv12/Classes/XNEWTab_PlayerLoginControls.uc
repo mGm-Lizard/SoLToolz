@@ -40,14 +40,14 @@ function bool Trade(GUIComponent Sender)
 
    if ( bTradeMode )
    {
-     b_TradeTeam.Caption = "ø@@OK";
+     b_TradeTeam.Caption = "Ã¸@@OK";
      l_TradeHint.Caption = TradeString;
    } else if ( PlayersAreSelected() ) {
      TradeSelectedPlayers();
-     b_TradeTeam.Caption = "ø@@Trade Team";
+     b_TradeTeam.Caption = "Ã¸@@Trade Team";
      l_TradeHint.Caption = "";
    } else {
-     b_TradeTeam.Caption = "ø@@Trade Team";
+     b_TradeTeam.Caption = "Ã¸@@Trade Team";
      l_TradeHint.Caption = TradeSelectionError;
    }
 
@@ -150,6 +150,15 @@ function bool InternalOnPreDraw(Canvas C)
   }
   else
       b_UserButton3.bVisible = false;
+	
+  SetButtonPositions(C);
+
+  if ( ((PlayerOwner().myHUD == None) || !PlayerOwner().myHUD.IsInCinematic()) 
+      /*&& GRI.bMatchHasBegun*/ /*&& !PlayerOwner().IsInState('GameEnded')*/ 
+      && (GRI.MaxLives <= 0 || !PlayerOwner().PlayerReplicationInfo.bOnlySpectator) )
+      EnableComponent(b_Spec);
+  else
+      DisableComponent(b_Spec);
   
   return Super.InternalOnPreDraw(C);
 }
@@ -177,7 +186,7 @@ function ShowAdminFeatures()
    if ( bNonAdminMenu && bTeamGame  ) //admin Team Trade button.
    {
      b_TradeTeam.bVisible=true;
-     b_TradeTeam.Caption="ø@@Trade Team";
+     b_TradeTeam.Caption="Ã¸@@Trade Team";
      bNonAdminMenu=false;
    }
 }
@@ -187,7 +196,7 @@ function UnShowAdminFeatures() //Hide admin features and reset captions.
     if ( !bNonAdminMenu )
     {
       b_TradeTeam.bVisible=false;
-      b_TradeTeam.Caption="ø@@Trade Team";
+      b_TradeTeam.Caption="Ã¸@@Trade Team";
       l_TradeHint.Caption="";
       ResetSelection();
       bTradeMode=false;
@@ -409,7 +418,7 @@ function ContextClick(GUIContextMenu Menu, int ClickIndex)
                 RI.SetLlama(false);
             break;            
         case 'Whois':
-            PC.ClientMessage("ý*** Running Whois on"@PRI.PlayerName@"***");
+            PC.ClientMessage("Ã½*** Running Whois on"@PRI.PlayerName@"***");
             // try both. AntiTCC and ClanManager version
             PC.ConsoleCommand("WhoIs"@StripColorCodes(PRI.PlayerName));
             PC.ConsoleCommand("CM WhoIs"@StripColorCodes(PRI.PlayerName));
