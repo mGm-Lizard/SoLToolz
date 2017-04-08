@@ -113,8 +113,6 @@ function bool InternalOnPreDraw(Canvas C)
     local SoLPlayerReplicationInfo RI;
     local GameReplicationInfo GRI;
 
-
-
     PRI = PlayerOwner().PlayerReplicationInfo;
     if(PRI != None)
     {
@@ -155,22 +153,45 @@ function bool InternalOnPreDraw(Canvas C)
       b_UserButton3.bVisible = false;
 	
 
-  GRI = GetGRI();
-  
-  if (GRI != None)
-  {
-     if (bInit)
-         InitGRI();
-	  
-      SetButtonPositions(C);
+    GRI = GetGRI();
+    if (GRI != None)
+    {
+        if (bInit)
+            InitGRI();
 
-      if ( ((PlayerOwner().myHUD == None) || !PlayerOwner().myHUD.IsInCinematic()) && (GRI.MaxLives <= 0 || !PlayerOwner().PlayerReplicationInfo.bOnlySpectator) )
-          EnableComponent(b_Spec);
-      else
-          DisableComponent(b_Spec);
-  }
-  
-  return Super.InternalOnPreDraw(C);
+        if ( bTeamGame )
+        {
+            if ( GRI.Teams[0] != None )
+                sb_Red.Caption = RedTeam@string(int(GRI.Teams[0].Score));
+
+            if ( GRI.Teams[1] != None )
+                sb_Blue.Caption = BlueTeam@string(int(GRI.Teams[1].Score));
+
+            if (PlayerOwner().PlayerReplicationInfo.Team != None)
+            {
+                if (PlayerOwner().PlayerReplicationInfo.Team.TeamIndex == 0)
+                {
+                    sb_Red.HeaderBase = texture'Display95';
+                    sb_Blue.HeaderBase = sb_blue.default.headerbase;
+                }
+                else
+                {
+                    sb_Blue.HeaderBase = texture'Display95';
+                    sb_Red.HeaderBase = sb_blue.default.headerbase;
+                }
+            }
+        }
+
+        SetButtonPositions(C);
+        UpdatePlayerLists();
+
+        if ( ((PlayerOwner().myHUD == None) || !PlayerOwner().myHUD.IsInCinematic()) && GRI.bMatchHasBegun && !PlayerOwner().IsInState('GameEnded') && (GRI.MaxLives <= 0 || !PlayerOwner().PlayerReplicationInfo.bOnlySpectator) )
+            EnableComponent(b_Spec);
+        else
+            DisableComponent(b_Spec);
+    }
+
+    return false;
 }
 
 function SetButtonPositions(Canvas C)
