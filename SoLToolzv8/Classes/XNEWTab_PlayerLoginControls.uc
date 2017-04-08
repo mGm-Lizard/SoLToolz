@@ -55,14 +55,14 @@ function bool Trade(GUIComponent Sender)
 
    if ( bTradeMode )
    {
-     b_TradeTeam.Caption = "ø@@OK";
+     b_TradeTeam.Caption = "Ã¸@@OK";
      l_TradeHint.Caption = TradeString;
    } else if ( PlayersAreSelected() ) {
      TradeSelectedPlayers();
-     b_TradeTeam.Caption = "ø@@Trade Team";
+     b_TradeTeam.Caption = "Ã¸@@Trade Team";
      l_TradeHint.Caption = "";
    } else {
-     b_TradeTeam.Caption = "ø@@Trade Team";
+     b_TradeTeam.Caption = "Ã¸@@Trade Team";
      l_TradeHint.Caption = TradeSelectionError;
    }
 
@@ -145,7 +145,7 @@ function bool InternalOnPreDraw(Canvas C)
   if (Mut.Button1Text != "" && Mut.Button1URL != "")
   {
       b_UserButton1.bVisible = true;
-      b_UserButton1.Caption = "@ø@" $ Mut.Button1Text;
+      b_UserButton1.Caption = "@Ã¸@" $ Mut.Button1Text;
   }
   else
       b_UserButton1.bVisible = false;
@@ -153,7 +153,7 @@ function bool InternalOnPreDraw(Canvas C)
   if (Mut.Button2Text != "" && Mut.Button2URL != "")
   {
       b_UserButton2.bVisible = true;
-      b_UserButton2.Caption = "@ø@" $ Mut.Button2Text;
+      b_UserButton2.Caption = "@Ã¸@" $ Mut.Button2Text;
   }
   else
       b_UserButton2.bVisible = false;
@@ -161,10 +161,19 @@ function bool InternalOnPreDraw(Canvas C)
   if (Mut.Button3Text != "" && Mut.Button3URL != "")
   {
       b_UserButton3.bVisible = true;
-      b_UserButton3.Caption = "@ø@" $ Mut.Button3Text;
+      b_UserButton3.Caption = "@Ã¸@" $ Mut.Button3Text;
   }
   else
       b_UserButton3.bVisible = false;
+	
+  SetButtonPositions(C);
+
+  if ( ((PlayerOwner().myHUD == None) || !PlayerOwner().myHUD.IsInCinematic()) 
+      /*&& GRI.bMatchHasBegun*/ /*&& !PlayerOwner().IsInState('GameEnded')*/ 
+      && (GRI.MaxLives <= 0 || !PlayerOwner().PlayerReplicationInfo.bOnlySpectator) )
+      EnableComponent(b_Spec);
+  else
+      DisableComponent(b_Spec);
 
   return Super.InternalOnPreDraw(C);
 }
@@ -192,7 +201,7 @@ function ShowAdminFeatures()
    if ( bNonAdminMenu && bTeamGame  ) //admin Team Trade button.
    {
      b_TradeTeam.bVisible=true;
-     b_TradeTeam.Caption="ø@@Trade Team";
+     b_TradeTeam.Caption="Ã¸@@Trade Team";
      bNonAdminMenu=false;
    }
 }
@@ -202,7 +211,7 @@ function UnShowAdminFeatures() //Hide admin features and reset captions.
     if ( !bNonAdminMenu )
     {
       b_TradeTeam.bVisible=false;
-      b_TradeTeam.Caption="ø@@Trade Team";
+      b_TradeTeam.Caption="Ã¸@@Trade Team";
       l_TradeHint.Caption="";
       ResetSelection();
       bTradeMode=false;
@@ -380,7 +389,7 @@ function ContextClick(GUIContextMenu Menu, int ClickIndex)
             break;
 		case 'Whois':
 			// Log("Whois:"@MenuArg[ClickIndex]);
-			PC.ClientMessage("ý*** Running Whois on"@MenuArg[ClickIndex]@"***");
+			PC.ClientMessage("Ã½*** Running Whois on"@MenuArg[ClickIndex]@"***");
 			Log("WhoIs"@StripColorCodes(MenuArg[ClickIndex]), 'RunCommand');
             // try both. AntiTCC and ClanManager version
 			PC.ConsoleCommand("WhoIs"@StripColorCodes(MenuArg[ClickIndex]));
