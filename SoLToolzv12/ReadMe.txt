@@ -1,6 +1,47 @@
-This is the final release done by Attila. Adds a talking icon above players name when typing.
+This tool was created to help administrators better manage their servers and players.
 
-You do not need to add this package to your ServerPackages list. You do, however,
-need to add it to your server's voting GameConfig. If you want the WhoIs function to work correctly, you must install ClanManager on your server as well.
+Installation:
 
-Once SoLTooLzv12 is running on your server, to grant a player trade privileges, login as admin 
+*/Animations .ukx
+*/KarmaData .ka
+*/Maps .ut2
+*/Sounds .uax
+*/StaticMeshes .usx
+*/System .u .ucl .ini .int
+*/Textures .utx  
+
+You do not need to add this package to your ServerPackages list. You do, however, need to add it to your server's voting GameConfig.
+If you want the WhoIs function to work correctly, you must install ClanManager on your server as well. ClanManager will be included with SoLTooLz.
+
+Almost all features are available in the right-click context menu  
+
+Features:
+
+-Not admin, no trade privilages
+
+*WhoIs command available to all players by pressing ESC, right clicking on a active players name, and selecting WhoIs.
+(Note: This only will work on active players. ClanManager ReadMe will tell you how to find out previous names of spectators.)
+
+-Not admin, has trade privilages
+
+*Player swapping to balance teams and doesn't kill players.
+
+*Force a player to use adrenaline to resurrect a dead/frozen teammate.
+ 
+*Can force a player to spectate.
+
+-Logged in as admin
+
+*Granting/revoking a players trade privilages.
+
+*Kick selected player.
+
+*Ban selected player.
+
+*Setting an active player as a Llama. (This allows them to only say phrases that have been defined in within WebAdmin or SoLTooLz.ini)
+
+-Console commands
+
+*
+
+Known bugs:
