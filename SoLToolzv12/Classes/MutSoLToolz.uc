@@ -388,8 +388,9 @@ function Mutate(string Data, PlayerController Sender)
 
         if (left(Data, 19) ~= "admin trade delete " && len(Data) > 19)
         {
-            ThePlayerID = int(right(Data, len(Data) - 19));
-            Sender.ClientMessage(i @ TradeMenu[i] @ "no longer trade");
+            i = ThePlayerID;
+	    ThePlayerID = int(right(Data, len(Data) - 19));
+            Sender.ClientMessage(i @ TradeMenu[i] @ "can no longer trade");
             TradeMenu.Remove(ThePlayerID, 1);
             return;
         }
@@ -404,8 +405,9 @@ function Mutate(string Data, PlayerController Sender)
 
         if (left(Data, 19) ~= "admin muted delete " && len(Data) > 19)
         {
-            ThePlayerID = int(right(Data, len(Data) - 19));
-            Sender.ClientMessage(i @ TradeMenu[i] @ "no longer muted");
+	    i = ThePlayerID;
+	    ThePlayerID = int(right(Data, len(Data) - 19));
+            Sender.ClientMessage(i @ TradeMenu[i] @ " is no longer muted");
             TradeMenu.Remove(ThePlayerID, 1);
             return;
         }
