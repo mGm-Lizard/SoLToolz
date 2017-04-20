@@ -42,6 +42,11 @@ Features:
 
 -Console commands
 
-*
-
+*admin scream
+*Mutate admin pause - Pauses currant match.
+*Mutate admin trade list - Displays an indexed list of players that have trade privilages.
+                           
+*Mutate admin trade delete <player index> - player index ex. 00; 01; 02
+*Mutate admin changeteam 
+*Mutate admin killbot <bot name>
 Known bugs:
